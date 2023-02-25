@@ -1,4 +1,4 @@
-import { Header, ProductCard, Pagination } from '@/components';
+import { HeaderSlide, ProductCard, Pagination } from '@/components';
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Row, Col } from 'antd';
@@ -34,7 +34,7 @@ export default function Home() {
 
   return (
     <>
-      <Header />
+      <HeaderSlide />
       <div>
         <h2 ref={(element) => (productRef = element)}>On Sale Products</h2>
 
