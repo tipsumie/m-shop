@@ -43,7 +43,7 @@ function ProductDetails({ product }) {
             {images
               .filter((img) => img.url != '')
               .map((img, index) => (
-                <SubImage>
+                <SubImage key={index}>
                   <ImageThumbnail
                     key={index}
                     src={img.url}
