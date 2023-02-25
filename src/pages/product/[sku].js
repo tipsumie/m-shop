@@ -38,6 +38,10 @@ const ImageThumbnail = styled.img`
   border: ${({ isActive }) => (isActive ? '1px solid #808B96' : 'none')};
   border-radius: 5px;
 `;
+const RegularText = styled(Text)`
+  color: #000;
+  font-weight: bold;
+`;
 
 const SpecialText = styled(Text)`
   color: #ff0000;
@@ -105,26 +109,42 @@ function ProductDetails({ product }) {
       <Col md={12} xs={24} style={{ padding: '1.5rem' }}>
         <h1>{product.brand?.name}</h1>
         <h4>{product?.name}</h4>
+        {product.price_range.minimum_price.discount?.amount_off === 0 ? (
+          <Row
+            justify='space-between'
+            align='middle'
+            style={{ marginBottom: 10 }}
+          >
+            <Col>
+              <RegularText style={{ fontSize: '22px' }}>
+                ฿{product.price_range.minimum_price.final_price?.value}
+              </RegularText>
+            </Col>
+          </Row>
+        ) : (
+          <>
+            <Row
+              justify='space-between'
+              align='middle'
+              style={{ marginBottom: 10 }}
+            >
+              <Col>
+                <SpecialText style={{ fontSize: '22px' }}>
+                  ฿{product.price_range.minimum_price.final_price?.value}
+                </SpecialText>
+                <FullPriceText style={{ fontSize: '16px' }}>
+                  ฿{product.price_range.minimum_price.regular_price?.value}
+                </FullPriceText>
+              </Col>
+            </Row>
+            <Row>
+              <SpecialText style={{ fontSize: '16px' }}>
+                SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
+              </SpecialText>
+            </Row>
+          </>
+        )}
 
-        <Row
-          justify='space-between'
-          align='middle'
-          style={{ marginBottom: 10 }}
-        >
-          <Col>
-            <SpecialText style={{ fontSize: '22px' }}>
-              ฿{product.price_range.minimum_price.final_price?.value}
-            </SpecialText>
-            <FullPriceText style={{ fontSize: '16px' }}>
-              ฿{product.price_range.minimum_price.regular_price?.value}
-            </FullPriceText>
-          </Col>
-        </Row>
-        <Row>
-          <SpecialText style={{ fontSize: '16px' }}>
-            SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
-          </SpecialText>
-        </Row>
         <ButtonContainer>
           <Button
             size='large'
