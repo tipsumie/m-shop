@@ -1,9 +1,6 @@
 import { Header, ProductCard, Pagination } from '@/components';
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useRouter } from 'next/router';
-import Link from 'next/link';
-import Head from 'next/head';
 import { Row, Col } from 'antd';
 import styled from 'styled-components';
 
@@ -38,9 +35,6 @@ export default function Home() {
     <>
       <Header />
       <div>
-        <Head>
-          <title>Product List</title>
-        </Head>
         <h2>Product List</h2>
 
         <StyledRow gutter={[12, 10]}>

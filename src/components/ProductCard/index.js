@@ -1,6 +1,6 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, Image, Typography } from 'antd';
+import { Card, Image, Typography, Row } from 'antd';
 import styled from 'styled-components';
 const { Text } = Typography;
 
@@ -26,6 +26,15 @@ const ImageContainer = styled.div`
   justify-content: center;
   align-items: center;
 `;
+const BrandText = styled(Text)`
+  color: #000;
+  font-weight: bold;
+`;
+
+const RegularText = styled(Text)`
+  color: #000;
+  font-weight: bold;
+`;
 
 const SpecialText = styled(Text)`
   color: #ff0000;
@@ -35,6 +44,7 @@ const SpecialText = styled(Text)`
 const FullPriceText = styled(Text)`
   color: #a1a1a1;
   text-decoration: line-through;
+  margin-left: 1em;
 `;
 
 const ProductCard = ({ product }) => {
@@ -48,17 +58,35 @@ const ProductCard = ({ product }) => {
             preview={false}
           />
         </ImageContainer>
-        <h3>{product.brand?.name}</h3>
-        <Text>{product?.name}</Text>
-        <SpecialText style={{ fontSize: '16px' }}>
-          ฿{product.price_range.minimum_price.final_price?.value}
-        </SpecialText>
-        <FullPriceText>
-          ฿{product.price_range.minimum_price.regular_price?.value}
-        </FullPriceText>
-        <SpecialText style={{ fontSize: '14px' }}>
-          SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
-        </SpecialText>
+        <Row>
+          <h3>{product.brand?.name}</h3>
+        </Row>
+        <Row>
+          <Text>{product?.name}</Text>
+        </Row>
+        {product.price_range.minimum_price.discount?.amount_off === 0 ? (
+          <Row>
+            <RegularText style={{ fontSize: '16px' }}>
+              ฿{product.price_range.minimum_price.final_price?.value}
+            </RegularText>
+          </Row>
+        ) : (
+          <>
+            <Row>
+              <SpecialText style={{ fontSize: '16px' }}>
+                ฿{product.price_range.minimum_price.final_price?.value}
+              </SpecialText>
+              <FullPriceText>
+                ฿{product.price_range.minimum_price.regular_price?.value}
+              </FullPriceText>
+            </Row>
+            <Row>
+              <SpecialText style={{ fontSize: '14px' }}>
+                SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
+              </SpecialText>
+            </Row>
+          </>
+        )}
       </StyledCard>
     </Link>
   );

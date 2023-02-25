@@ -67,10 +67,10 @@ function ProductDetails({ product }) {
   const images = [
     { url: product.image.url },
     { url: product.small_image.url },
-    { url: product.second_image.url ? product.second_image.url : undefined },
+    { url: product.second_image.url },
   ];
-
   console.log(images);
+
   const isActive = (index) => {
     if (tab === index) {
       return 'active';
@@ -88,15 +88,17 @@ function ProductDetails({ product }) {
         />
 
         <Row justify='center'>
-          {images.map((img, index) => (
-            <ImageThumbnail
-              key={index}
-              src={img.url}
-              alt={img.url}
-              isActive={isActive(index)}
-              onClick={() => setTab(index)}
-            />
-          ))}
+          {images
+            .filter((x) => x.url != '')
+            .map((img, index) => (
+              <ImageThumbnail
+                key={index}
+                src={img.url}
+                alt={img.url}
+                isActive={isActive(index)}
+                onClick={() => setTab(index)}
+              />
+            ))}
         </Row>
       </ImageContainer>
 
