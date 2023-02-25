@@ -4,6 +4,7 @@ const apiUrl = process.env.API_PRODUCT_URL;
 import { Row, Col, Image, Button, Typography } from 'antd';
 import { NavBar, SaleBadge } from '@/components';
 import styled from 'styled-components';
+
 const { Text } = Typography;
 
 function ProductDetails({ product }) {
@@ -95,15 +96,7 @@ function ProductDetails({ product }) {
           )}
 
           <ButtonContainer>
-            <Button
-              size='large'
-              style={{
-                width: '90%',
-                backgroundColor: '#000',
-                color: '#FFF',
-              }}
-              onClick={() => {}}
-            >
+            <Button size='large' style={CartButton} onClick={() => {}}>
               ADD TO CART
             </Button>
           </ButtonContainer>
@@ -199,3 +192,12 @@ const SubImage = styled.div`
   justify-content: center;
   align-items: center;
 `;
+
+const CartButton = {
+  width: '90%',
+  backgroundColor: '#000',
+  color: '#FFF',
+  '@media screen and (max-width: 767px)': {
+    width: '100%',
+  },
+};
