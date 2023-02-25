@@ -1,14 +1,16 @@
 import axios from 'axios';
+import { useState } from 'react';
 import { useRouter } from 'next/router';
 const apiUrl = process.env.API_PRODUCT_URL;
-import { Row, Col, Image, Button } from 'antd';
+import { Row, Col, Image, Button, Typography } from 'antd';
 import styled from 'styled-components';
+const { Text } = Typography;
 
 const ProductDetailContainer = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  padding: 20px;
+  padding: 10px;
   background-color: #fff;
   border-radius: 5px;
   box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
@@ -30,28 +32,63 @@ const ImageContainer = styled.div`
 
 const ImageThumbnail = styled.img`
   height: 80px;
-  width: 20%;
+  width: 25%;
   margin: 5px;
   cursor: pointer;
-  border: ${({ isActive }) => (isActive ? '2px solid #1890ff' : 'none')};
+  border: ${({ isActive }) => (isActive ? '1px solid #808B96' : 'none')};
   border-radius: 5px;
+`;
+
+const SpecialText = styled(Text)`
+  color: #ff0000;
+  font-weight: bold;
+`;
+
+const FullPriceText = styled(Text)`
+  color: #a1a1a1;
+  text-decoration: line-through;
+  margin-left: 1em;
+`;
+
+const ButtonContainer = styled.div`
+  display: flex;
+  padding-top: 2em;
+  margin-right: 2em;
+  @media screen and (max-width: 767px) {
+    justify-content: center;
+    margin-right: 0em;
+  }
 `;
 
 function ProductDetails({ product }) {
   const router = useRouter();
+  const [tab, setTab] = useState(0);
+
+  const images = [
+    { url: product.image.url },
+    { url: product.small_image.url },
+    { url: product.second_image.url ? product.second_image.url : undefined },
+  ];
+
+  console.log(images);
+  const isActive = (index) => {
+    if (tab === index) {
+      return 'active';
+    }
+  };
 
   return (
     <ProductDetailContainer>
       <ImageContainer>
         <Image
-          src={product.image?.url}
-          alt={product?.name}
+          src={images[tab].url}
+          alt={images[tab].url}
           width={350}
           preview={false}
         />
 
         <Row justify='center'>
-          {/* {product?.image.map((img, index) => (
+          {images.map((img, index) => (
             <ImageThumbnail
               key={index}
               src={img.url}
@@ -59,13 +96,13 @@ function ProductDetails({ product }) {
               isActive={isActive(index)}
               onClick={() => setTab(index)}
             />
-          ))} */}
+          ))}
         </Row>
       </ImageContainer>
 
-      <Col md={12} xs={24}>
-        <h2>{product.brand?.name}</h2>
-        <h4>${product?.name}</h4>
+      <Col md={12} xs={24} style={{ padding: '1.5rem' }}>
+        <h1>{product.brand?.name}</h1>
+        <h4>{product?.name}</h4>
 
         <Row
           justify='space-between'
@@ -73,31 +110,32 @@ function ProductDetails({ product }) {
           style={{ marginBottom: 10 }}
         >
           <Col>
-            <span style={{ color: 'red' }}>
+            <SpecialText style={{ fontSize: '22px' }}>
               ฿{product.price_range.minimum_price.final_price?.value}
-            </span>
-          </Col>
-
-          <Col>
-            <span style={{ color: 'red' }}>
-              {' '}
+            </SpecialText>
+            <FullPriceText style={{ fontSize: '16px' }}>
               ฿{product.price_range.minimum_price.regular_price?.value}
-            </span>
+            </FullPriceText>
           </Col>
         </Row>
-
-        <div style={{ marginBottom: 10 }}>
-          SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
-        </div>
-
-        <Button
-          type='primary'
-          size='large'
-          style={{ width: '100%' }}
-          onClick={() => {}}
-        >
-          ADD TO BAG
-        </Button>
+        <Row>
+          <SpecialText style={{ fontSize: '16px' }}>
+            SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
+          </SpecialText>
+        </Row>
+        <ButtonContainer>
+          <Button
+            size='large'
+            style={{
+              width: '90%',
+              backgroundColor: '#000',
+              color: '#FFF',
+            }}
+            onClick={() => {}}
+          >
+            ADD TO BAG
+          </Button>
+        </ButtonContainer>
       </Col>
     </ProductDetailContainer>
   );
@@ -107,7 +145,6 @@ export async function getServerSideProps(context) {
   const { sku } = context.query;
   const res = await axios.get(`${apiUrl}/?sku=${sku}`);
   const product = res.data;
-  console.log('TEST_______', product);
 
   return {
     props: { product },
