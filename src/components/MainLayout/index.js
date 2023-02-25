@@ -1,6 +1,26 @@
 import React from 'react';
-import { Breadcrumb, Layout, Menu, theme } from 'antd';
-const { Header, Content, Footer } = Layout;
+import styled from 'styled-components';
+import { Layout } from 'antd';
+const { Content } = Layout;
+
+const FooterLayout = styled.footer`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e7e8ef;
+  padding: 1rem;
+  font-size: 0.75rem;
+
+  & > p {
+    margin-right: 0.5rem;
+  }
+
+  & > a {
+    font-weight: 500;
+    color: #f97316;
+    margin-left: 5px;
+  }
+`;
 
 const MainLayout = ({ children }) => {
   return (
@@ -12,14 +32,11 @@ const MainLayout = ({ children }) => {
       >
         {children}
       </Content>
-
-      <Footer
-        style={{
-          textAlign: 'center',
-        }}
-      >
-        M Shop ©2023 Created by MM
-      </Footer>
+      <FooterLayout>
+        <p> M Shop ©2023 Created by MM</p>
+        <span>|</span>
+        <a href='https://github.com/tipsumie/m-shop'>Source code</a>
+      </FooterLayout>
     </div>
   );
 };

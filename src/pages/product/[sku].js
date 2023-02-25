@@ -38,6 +38,7 @@ const ImageThumbnail = styled.img`
   border: ${({ isActive }) => (isActive ? '1px solid #808B96' : 'none')};
   border-radius: 5px;
 `;
+
 const RegularText = styled(Text)`
   color: #000;
   font-weight: bold;
@@ -65,7 +66,6 @@ const ButtonContainer = styled.div`
 `;
 
 function ProductDetails({ product }) {
-  const router = useRouter();
   const [tab, setTab] = useState(0);
 
   const images = [
@@ -88,7 +88,7 @@ function ProductDetails({ product }) {
           src={images[tab].url}
           alt={images[tab].url}
           width={350}
-          preview={false}
+          preview={true}
         />
 
         <Row justify='center'>
