@@ -26,24 +26,28 @@ function ProductDetails({ product }) {
       <NavBar />
       <ProductDetailContainer>
         <ImageContainer>
-          <Image
-            src={images[tab].url}
-            alt={images[tab].url}
-            width={350}
-            preview={true}
-          />
+          <MainImage>
+            <Image
+              src={images[tab].url}
+              alt={images[tab].url}
+              width={350}
+              preview={true}
+            />
+          </MainImage>
 
           <Row justify='center'>
             {images
               .filter((img) => img.url != '')
               .map((img, index) => (
-                <ImageThumbnail
-                  key={index}
-                  src={img.url}
-                  alt={img.url}
-                  isActive={isActive(index)}
-                  onClick={() => setTab(index)}
-                />
+                <SubImage>
+                  <ImageThumbnail
+                    key={index}
+                    src={img.url}
+                    alt={img.url}
+                    isActive={isActive(index)}
+                    onClick={() => setTab(index)}
+                  />
+                </SubImage>
               ))}
           </Row>
         </ImageContainer>
@@ -106,6 +110,8 @@ function ProductDetails({ product }) {
   );
 }
 
+export default ProductDetails;
+
 export async function getServerSideProps(context) {
   const { sku } = context.query;
   const res = await axios.get(`${apiUrl}/?sku=${sku}`);
@@ -115,8 +121,6 @@ export async function getServerSideProps(context) {
     props: { product },
   };
 }
-
-export default ProductDetails;
 
 const ProductDetailContainer = styled.div`
   display: flex;
@@ -145,11 +149,12 @@ const ImageContainer = styled.div`
 
 const ImageThumbnail = styled.img`
   height: 80px;
-  width: 25%;
+  width: 100%;
   margin: 5px;
   cursor: pointer;
   border: ${({ isActive }) => (isActive ? '1px solid #808B96' : 'none')};
   border-radius: 5px;
+  object-fit: contain;
 `;
 
 const RegularText = styled(Text)`
@@ -176,4 +181,17 @@ const ButtonContainer = styled.div`
     justify-content: center;
     margin-right: 0em;
   }
+`;
+
+const MainImage = styled.div`
+  height: auto;
+  min-height: 150px;
+`;
+
+const SubImage = styled.div`
+  width: auto;
+  max-width: 100px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;

@@ -2,7 +2,6 @@ import { Layout, Menu, Badge, Row, Col } from 'antd';
 import { ShoppingCartOutlined } from '@ant-design/icons';
 import Image from 'next/image';
 import Link from 'next/link';
-import styled from 'styled-components';
 
 const { Header } = Layout;
 

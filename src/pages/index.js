@@ -36,7 +36,7 @@ export default function Home() {
     <>
       <Header />
       <div>
-        <h2 ref={(element) => (productRef = element)}>Product List</h2>
+        <h2 ref={(element) => (productRef = element)}>On Sale Products</h2>
 
         <ProductsRow gutter={[12, 10]}>
           {products.length === 0 ? (
@@ -59,7 +59,6 @@ export default function Home() {
     </>
   );
 }
-
 
 const ProductsRow = styled(Row)`
   margin: -12px;

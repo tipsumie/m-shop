@@ -64,7 +64,6 @@ const ProductImage = styled(Image)`
 `;
 
 const ImageContainer = styled.div`
-  height: auto;
   max-height: 250px;
   height: 250px;
   width: auto;
@@ -72,10 +71,6 @@ const ImageContainer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-`;
-const BrandText = styled(Text)`
-  color: #000;
-  font-weight: bold;
 `;
 
 const RegularText = styled(Text)`
