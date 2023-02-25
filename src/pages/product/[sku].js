@@ -60,24 +60,16 @@ function ProductDetails({ product }) {
           <h1>{product.brand?.name}</h1>
           <h4>{product?.name}</h4>
           {product.price_range.minimum_price.discount?.amount_off === 0 ? (
-            <Row
-              justify='space-between'
-              align='middle'
-              style={{ marginBottom: 10 }}
-            >
+            <ContentRow>
               <Col>
                 <RegularText style={{ fontSize: '22px' }}>
                   ฿{product.price_range.minimum_price.final_price?.value}
                 </RegularText>
               </Col>
-            </Row>
+            </ContentRow>
           ) : (
             <>
-              <Row
-                justify='space-between'
-                align='middle'
-                style={{ marginBottom: 10 }}
-              >
+              <ContentRow>
                 <Col>
                   <SpecialText style={{ fontSize: '22px' }}>
                     ฿{product.price_range.minimum_price.final_price?.value}
@@ -86,7 +78,7 @@ function ProductDetails({ product }) {
                     ฿{product.price_range.minimum_price.regular_price?.value}
                   </FullPriceText>
                 </Col>
-              </Row>
+              </ContentRow>
               <Row>
                 <SpecialText style={{ fontSize: '16px' }}>
                   SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
@@ -201,3 +193,9 @@ const CartButton = {
     width: '100%',
   },
 };
+
+const ContentRow = styled(Row)`
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+`;
