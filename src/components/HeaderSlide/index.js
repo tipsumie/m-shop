@@ -12,7 +12,7 @@ const HeaderSlide = () => {
   return (
     <Carousel autoplay>
       {banner.map((img, idx) => (
-        <div>
+        <div key={idx}>
           <Image
             src={img?.src}
             alt={`Banner ${idx}`}
@@ -27,4 +27,3 @@ const HeaderSlide = () => {
 };
 
 export default HeaderSlide;
-
