@@ -1,7 +1,9 @@
 import React from 'react';
 import Link from 'next/link';
 import { Card, Image, Typography, Row } from 'antd';
+import { SaleBadge } from '@/components';
 import styled from 'styled-components';
+
 const { Text } = Typography;
 
 const ProductCard = ({ product }) => {
@@ -33,7 +35,7 @@ const ProductCard = ({ product }) => {
               <SpecialText style={{ fontSize: '16px' }}>
                 ฿{product.price_range.minimum_price.final_price?.value}
               </SpecialText>
-              <FullPriceText>
+              <FullPriceText style={{ fontSize: '14px' }}>
                 ฿{product.price_range.minimum_price.regular_price?.value}
               </FullPriceText>
             </Row>
@@ -44,6 +46,9 @@ const ProductCard = ({ product }) => {
             </Row>
           </>
         )}
+        <SaleBadge
+          discount={product.price_range.minimum_price.discount?.percent_off}
+        />
       </ProductDetailCard>
     </Link>
   );
@@ -64,7 +69,6 @@ const ProductImage = styled(Image)`
 `;
 
 const ImageContainer = styled.div`
-  max-height: 250px;
   height: 250px;
   width: auto;
   max-width: 250px;
@@ -87,4 +91,6 @@ const FullPriceText = styled(Text)`
   color: #a1a1a1;
   text-decoration: line-through;
   margin-left: 1em;
+  font-weight: bold;
+  margin-top: 2px;
 `;

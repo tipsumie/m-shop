@@ -2,7 +2,7 @@ import axios from 'axios';
 import { useState } from 'react';
 const apiUrl = process.env.API_PRODUCT_URL;
 import { Row, Col, Image, Button, Typography } from 'antd';
-import { NavBar } from '@/components';
+import { NavBar, SaleBadge } from '@/components';
 import styled from 'styled-components';
 const { Text } = Typography;
 
@@ -32,6 +32,9 @@ function ProductDetails({ product }) {
               alt={images[tab].url}
               width={350}
               preview={true}
+            />
+            <SaleBadge
+              discount={product.price_range.minimum_price.discount?.percent_off}
             />
           </MainImage>
 
@@ -186,6 +189,7 @@ const ButtonContainer = styled.div`
 const MainImage = styled.div`
   height: auto;
   min-height: 150px;
+  position: relative;
 `;
 
 const SubImage = styled.div`
