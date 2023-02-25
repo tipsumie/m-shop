@@ -2,12 +2,6 @@ import React from 'react';
 import styled from 'styled-components';
 import { Pagination } from 'antd';
 
-const PaginationContainer = styled.div`
-  display: flex;
-  justify-content: center;
-  padding: 2rem;
-`;
-
 const CustomPagination = ({ current, total, onChange }) => {
   return (
     <PaginationContainer>
@@ -17,3 +11,9 @@ const CustomPagination = ({ current, total, onChange }) => {
 };
 
 export default CustomPagination;
+
+const PaginationContainer = styled.div`
+  display: flex;
+  justify-content: center;
+  padding: 2rem;
+`;

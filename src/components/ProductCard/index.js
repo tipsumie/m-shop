@@ -4,7 +4,54 @@ import { Card, Image, Typography, Row } from 'antd';
 import styled from 'styled-components';
 const { Text } = Typography;
 
-const StyledCard = styled(Card)`
+const ProductCard = ({ product }) => {
+  return (
+    <Link href={`/product/${product?.sku}`}>
+      <ProductDetailCard hoverable>
+        <ImageContainer>
+          <ProductImage
+            alt={product?.name}
+            src={product.image?.url}
+            preview={false}
+          />
+        </ImageContainer>
+        <Row>
+          <h3>{product.brand?.name}</h3>
+        </Row>
+        <Row>
+          <Text>{product?.name}</Text>
+        </Row>
+        {product.price_range.minimum_price.discount?.amount_off === 0 ? (
+          <Row>
+            <RegularText style={{ fontSize: '16px' }}>
+              ฿{product.price_range.minimum_price.final_price?.value}
+            </RegularText>
+          </Row>
+        ) : (
+          <>
+            <Row>
+              <SpecialText style={{ fontSize: '16px' }}>
+                ฿{product.price_range.minimum_price.final_price?.value}
+              </SpecialText>
+              <FullPriceText>
+                ฿{product.price_range.minimum_price.regular_price?.value}
+              </FullPriceText>
+            </Row>
+            <Row>
+              <SpecialText style={{ fontSize: '14px' }}>
+                SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
+              </SpecialText>
+            </Row>
+          </>
+        )}
+      </ProductDetailCard>
+    </Link>
+  );
+};
+
+export default ProductCard;
+
+const ProductDetailCard = styled(Card)`
   height: 100%;
   display: flex;
   justify-content: center;
@@ -46,50 +93,3 @@ const FullPriceText = styled(Text)`
   text-decoration: line-through;
   margin-left: 1em;
 `;
-
-const ProductCard = ({ product }) => {
-  return (
-    <Link href={`/product/${product.sku}`}>
-      <StyledCard hoverable>
-        <ImageContainer>
-          <ProductImage
-            alt={product?.name}
-            src={product.image?.url}
-            preview={false}
-          />
-        </ImageContainer>
-        <Row>
-          <h3>{product.brand?.name}</h3>
-        </Row>
-        <Row>
-          <Text>{product?.name}</Text>
-        </Row>
-        {product.price_range.minimum_price.discount?.amount_off === 0 ? (
-          <Row>
-            <RegularText style={{ fontSize: '16px' }}>
-              ฿{product.price_range.minimum_price.final_price?.value}
-            </RegularText>
-          </Row>
-        ) : (
-          <>
-            <Row>
-              <SpecialText style={{ fontSize: '16px' }}>
-                ฿{product.price_range.minimum_price.final_price?.value}
-              </SpecialText>
-              <FullPriceText>
-                ฿{product.price_range.minimum_price.regular_price?.value}
-              </FullPriceText>
-            </Row>
-            <Row>
-              <SpecialText style={{ fontSize: '14px' }}>
-                SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
-              </SpecialText>
-            </Row>
-          </>
-        )}
-      </StyledCard>
-    </Link>
-  );
-};
-
-export default ProductCard;

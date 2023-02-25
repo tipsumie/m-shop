@@ -3,25 +3,6 @@ import styled from 'styled-components';
 import { Layout } from 'antd';
 const { Content } = Layout;
 
-const FooterLayout = styled.footer`
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-color: #e7e8ef;
-  padding: 1rem;
-  font-size: 0.75rem;
-
-  & > p {
-    margin-right: 0.5rem;
-  }
-
-  & > a {
-    font-weight: 500;
-    color: #f97316;
-    margin-left: 5px;
-  }
-`;
-
 const MainLayout = ({ children }) => {
   return (
     <div>
@@ -42,3 +23,23 @@ const MainLayout = ({ children }) => {
 };
 
 export default MainLayout;
+
+const FooterLayout = styled.footer`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #e7e8ef;
+  padding: 1rem;
+  font-size: 0.75rem;
+  margin-top: 10px;
+
+  & > p {
+    margin-right: 0.5rem;
+  }
+
+  & > a {
+    font-weight: 500;
+    color: #f97316;
+    margin-left: 5px;
+  }
+`;
