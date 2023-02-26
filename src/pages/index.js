@@ -1,4 +1,4 @@
-import { HeaderSlide, ProductCard, Pagination } from '@/components';
+import { HeaderSlide, ProductCard, Pagination, Loading } from '@/components';
 import React, { useState, useEffect, useRef } from 'react';
 import axios from 'axios';
 import { Row, Col } from 'antd';
@@ -32,15 +32,16 @@ export default function Home() {
     scrollHandler();
   };
 
+
   return (
     <>
       <HeaderSlide />
       <div>
         <h2 ref={(element) => (productRef = element)}>On Sale Products</h2>
 
-        <ProductsRow gutter={[12, 10]}>
+        <ProductsRow gutter={[12, 10]} justify='center'>
           {products.length === 0 ? (
-            <h2>No Products</h2>
+            <Loading />
           ) : (
             products.map((product) => (
               <Col xs={24} sm={12} lg={8} xl={6} key={product?.id}>

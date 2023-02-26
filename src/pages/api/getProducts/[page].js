@@ -1,4 +1,3 @@
-// pages/api/getData.js
 import axios from 'axios';
 const apiUrl = process.env.API_PRODUCTS_URL;
 

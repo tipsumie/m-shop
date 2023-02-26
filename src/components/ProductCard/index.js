@@ -1,10 +1,11 @@
 import React from 'react';
 import Link from 'next/link';
-import { Card, Image, Typography, Row } from 'antd';
+import { Card, Image, Typography, Row, Layout } from 'antd';
 import { SaleBadge } from '@/components';
 import styled from 'styled-components';
 
 const { Text } = Typography;
+const { Content } = Layout;
 
 const ProductCard = ({ product }) => {
   return (
@@ -17,35 +18,37 @@ const ProductCard = ({ product }) => {
             preview={false}
           />
         </ImageContainer>
-        <Row>
-          <h3>{product.brand?.name}</h3>
-        </Row>
-        <Row>
-          <Text>{product?.name}</Text>
-        </Row>
-        {product.price_range.minimum_price.discount?.amount_off === 0 ? (
+        <ProductContent>
           <Row>
-            <RegularText style={{ fontSize: '16px' }}>
-              ฿{product.price_range.minimum_price.final_price?.value}
-            </RegularText>
+            <h3>{product.brand?.name}</h3>
           </Row>
-        ) : (
-          <>
+          <Row>
+            <Text>{product?.name}</Text>
+          </Row>
+          {product.price_range.minimum_price.discount?.amount_off === 0 ? (
             <Row>
-              <SpecialText style={{ fontSize: '16px' }}>
+              <RegularText style={{ fontSize: '16px' }}>
                 ฿{product.price_range.minimum_price.final_price?.value}
-              </SpecialText>
-              <FullPriceText style={{ fontSize: '14px' }}>
-                ฿{product.price_range.minimum_price.regular_price?.value}
-              </FullPriceText>
+              </RegularText>
             </Row>
-            <Row>
-              <SpecialText style={{ fontSize: '14px' }}>
-                SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
-              </SpecialText>
-            </Row>
-          </>
-        )}
+          ) : (
+            <>
+              <Row>
+                <SpecialText style={{ fontSize: '16px' }}>
+                  ฿{product.price_range.minimum_price.final_price?.value}
+                </SpecialText>
+                <FullPriceText style={{ fontSize: '14px' }}>
+                  ฿{product.price_range.minimum_price.regular_price?.value}
+                </FullPriceText>
+              </Row>
+              <Row>
+                <SpecialText style={{ fontSize: '14px' }}>
+                  SAVE ฿{product.price_range.minimum_price.discount?.amount_off}
+                </SpecialText>
+              </Row>
+            </>
+          )}
+        </ProductContent>
         <SaleBadge
           discount={product.price_range.minimum_price.discount?.percent_off}
         />
@@ -93,4 +96,24 @@ const FullPriceText = styled(Text)`
   margin-left: 1em;
   font-weight: bold;
   margin-top: 2px;
+`;
+
+const ProductContent = styled(Content)`
+  width: 100%;
+  max-width: 500px;
+  height: 125px;
+
+  h3 {
+    font-size: 20px;
+    margin-bottom: 5px;
+  }
+
+  @media (max-width: 768px) {
+    max-width: 100%;
+
+    h3 {
+      font-size: 18px;
+      margin-bottom: 5px;
+    }
+  }
 `;
