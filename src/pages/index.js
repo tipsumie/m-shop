@@ -32,7 +32,6 @@ export default function Home() {
     scrollHandler();
   };
 
-
   return (
     <>
       <HeaderSlide />
@@ -51,11 +50,13 @@ export default function Home() {
           )}
         </ProductsRow>
 
-        <Pagination
-          current={currentPage}
-          total={50}
-          onChange={handlePaginationChange}
-        />
+        {products.length != 0 && (
+          <Pagination
+            current={currentPage}
+            total={50}
+            onChange={handlePaginationChange}
+          />
+        )}
       </div>
     </>
   );
