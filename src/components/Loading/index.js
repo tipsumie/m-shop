@@ -1,9 +1,6 @@
 import React from 'react';
 import { LoadingOutlined } from '@ant-design/icons';
-import { Row, Layout } from 'antd';
 import styled from 'styled-components';
-
-const { Content } = Layout;
 
 const Loading = () => {
   return (
@@ -19,8 +16,8 @@ const Loading = () => {
 export default Loading;
 
 const LoadingContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
 `;
