@@ -1,10 +1,10 @@
 import axios from 'axios';
 import { useState } from 'react';
-const apiUrl = process.env.API_PRODUCT_URL;
 import { Row, Col, Image, Button, Typography } from 'antd';
 import { NavBar, SaleBadge } from '@/components';
 import styled from 'styled-components';
 
+const apiUrl = process.env.API_PRODUCT_URL;
 const { Text } = Typography;
 
 function ProductDetails({ product }) {

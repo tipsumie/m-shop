@@ -1,4 +1,5 @@
 import axios from 'axios';
+
 const apiUrl = process.env.API_PRODUCTS_URL;
 
 export default async function getProducts(req, res) {
